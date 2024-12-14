@@ -1,0 +1,317 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Elements {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+  #miCanvas {
+      border: 1px solid black;
+      background-color: #f0f0f0;
+      cursor: crosshair;
+      touch-action: none; /* Evita el desplazamiento cuando se toca el canvas */
+  }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+  <!-- Header -->
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">Form elements</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="col-lg-6 col-5 text-right">
+            <a href="#" class="btn btn-sm btn-neutral">New</a>
+            <a href="#" class="btn btn-sm btn-neutral">Filters</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    
+    <div class="card mb-4">
+      <!-- Card header -->
+      <div class="card-header">
+        <h3 class="mb-0">TÉRMINOS Y CONDICIONES DE USO DE JUMPVILLE</h3>
+      </div>
+
+      <div class="card-header">
+        Al ingresar y utilizar las instalaciones de JumpVille, los visitantes aceptan de manera expresa y sin reservas los siguientes términos y condiciones:
+        <br>
+        <ol>
+          <li><b>Riesgos Inherentes</b><br>El uso de los juegos inflables y otras instalaciones del parque conlleva riesgos inherentes, incluyendo, pero no limitándose a, caídas, golpes, lesiones por colisiones, atrapamientos o cualquier otro incidente relacionado con la actividad. Los visitantes entienden y aceptan que la participación en dichas actividades es voluntaria y bajo su propio riesgo.</li>
+          <li><b>Exoneración de Responsabilidad</b><br>El parque inflable JumpVille, sus propietarios, empleados, representantes y cualquier otra persona asociada con el establecimiento no serán responsables por lesiones, daños, pérdidas o accidentes que puedan ocurrir durante o después de la participación en las actividades. Al hacer uso de las instalaciones, el visitante libera de toda responsabilidad a JumpVille por cualquier reclamo o acción legal derivada de accidentes ocurridos en el parque.</li>
+          <li><b>Normas de Seguridad</b>Los visitantes se comprometen a cumplir con todas las normas de seguridad establecidas por JumpVille, las cuales incluyen instrucciones sobre el uso adecuado de los juegos inflables y la conducta apropiada durante las actividades. El incumplimiento de las normas de seguridad puede resultar en la expulsión del parque sin derecho a reembolso.<br></li>
+          <li><b>Condiciones Físicas</b><br>Los usuarios del parque deben asegurarse de que están en condiciones físicas adecuadas para participar en las actividades ofrecidas por JumpVille. No se recomienda la participación a personas con condiciones médicas preexistentes que puedan verse agravadas por el uso de los juegos inflables o actividades relacionadas.</li>
+          <li><b>Supervisión</b><br>El uso de las instalaciones debe ser supervisado por un adulto responsable en todo momento. Los menores de edad deben estar acompañados de un adulto durante su participación en las actividades.</li>
+          <li><b>Autorización para Emergencias</b><br>En caso de emergencia, JumpVille tiene la autorización para proporcionar primeros auxilios o buscar atención médica para los visitantes que lo requieran, sin que ello implique una aceptación de responsabilidad adicional.</li>
+          <li><b>Modificación de Términos</b><br>JumpVille se reserva el derecho de modificar, en cualquier momento y sin previo aviso, estos términos y condiciones, así como las normas de uso y seguridad, con el fin de garantizar el bienestar de los usuarios y el buen funcionamiento del parque.</li>
+          <li><b>Aceptación de Términos</b><br>Al ingresar al parque y participar en las actividades, los visitantes confirman que han leído, comprendido y aceptado estos términos y condiciones.</li>
+        </ol>
+      </div>      
+      <!-- Card body -->
+      <div class="card-body">
+        <!-- Form groups used in grid -->
+        <div class="row">
+          <div class="col-md">
+            <div class="form-group">
+              <label class="form-control-label" for="example3cols1Input">Nombre de padre/madre/tutor/responsable (debe ser mayor de edad)</label>
+              <input type="text" class="form-control" id="idVar1" placeholder="Ingresar nombre completo">
+            </div>
+          </div>
+          <div class="col-md-2">  
+            <div class="form-group">
+              <label for="example-number-input" class="form-control-label">Edad en años</label>
+              <input class="form-control" type="number" value="" id="idVar2">
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md">
+            <div class="form-group">
+              <div class="form-group">
+                <label class="form-control-label" for="exampleFormControlSelect1">Tipo de documento</label>
+                <select class="form-control" id="idVar3">
+                  <option value = "dni">DNI</option>
+                  <option value = "carnet_extranjeria">Carnet de extranjeria</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">  
+            <div class="form-group">
+              <label for="example-number-input" class="form-control-label">Ingresar documento</label>
+              <input class="form-control" type="number" value="" id="idVar4">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md">  
+            <div class="form-group">
+              <label for="example-number-input" class="form-control-label">Teléfono/Celular (Opcional)</label>
+              <input class="form-control" type="number" value="" id="idVar5">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md">  
+            <div class="form-group">
+              <label class="form-control-label" for="exampleFormControlInput1">Correo electrónico (Opcional). Recibirás promociones</label>
+              <input type="email" class="form-control" id="idVar5" placeholder="name@example.com">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+
+            <div class="form-group row">
+              <label for="text" class="col-md">Registro de menores de los cuales tiene responsabilidad</label>
+            </div>
+
+          </div>
+          <div class="card-body">
+              <div id="formContainer">
+                <div class="row">
+                  <div class="col-md-7">
+                      <div class="form-group">
+                        <label class="form-control-label" for="example3cols1Input">Nombre</label>
+                        <input type="text" class="form-control" id="nombreChild" placeholder="Introducir nombre completo del menor...">
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <div class="form-group">
+                        <label class="form-control-label" for="example3cols1Input">Edad en años</label>
+                        <input type="number" class="form-control" id="edadChild" placeholder="Edad">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-group">
+                      <div class="form-group">
+                        <label class="form-control-label" for="example3cols1Input">Accion:</label>
+                        <br>
+                        <button onclick="addData()">Agregar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>    
+
+              </div>
+              <div class="table-responsive py-4">
+                <table class="table table-flush" id="outputTable">
+                  <tr>
+                      <th>Nombre</th>
+                      <th>Edad</th>
+                      <th>Accion</th>                      
+                  </tr>
+                </table>  
+              </div>
+
+          </div>            
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="form-group">
+              <h2>Acepto los terminos y clausulas mencionadas previamente</h2>
+              <label class="custom-toggle custom-toggle-default">
+              <input type="checkbox">
+              <span class="custom-toggle-slider rounded-circle" data-label-off="No" data-label-on="Si"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="form-group">
+              <h2>Firma del apoderado</h2>
+              <div id="contenedor-firma">
+                <canvas id="miCanvas" width="400" height="200"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include 'includes/footer.html' %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+  function addData() {
+      // Get input values
+      let name = document.getElementById("nombreChild").value;
+      let email = document.getElementById("edadChild").value;
+
+      // Get the table and insert a new row at the end
+      let table = document.getElementById("outputTable");
+      let newRow = table.insertRow(table.rows.length);
+
+      // Insert data into cells of the new row
+      newRow.insertCell(0).innerHTML = name;
+      newRow.insertCell(1).innerHTML = email;
+      newRow.insertCell(2).innerHTML ='<button onclick="deleteData(this)">Borrar</button>';
+
+      // Clear input fields
+      clearInputs();
+  }
+
+  function editData(button) {
+
+      // Get the parent row of the clicked button
+      let row = button.parentNode.parentNode;
+
+      // Get the cells within the row
+      let nameCell = row.cells[0];
+      let emailCell = row.cells[1];
+
+      // Prompt the user to enter updated values
+      let nombreChild =
+          prompt("Enter the updated name:",
+              nameCell.innerHTML);
+      let edadChild =
+          prompt("Enter the updated email:",
+              emailCell.innerHTML);
+
+      // Update the cell contents with the new values
+      nameCell.innerHTML = nameInput;
+      emailCell.innerHTML = emailInput;
+  }
+
+  function deleteData(button) {
+
+      // Get the parent row of the clicked button
+      let row = button.parentNode.parentNode;
+
+      // Remove the row from the table
+      row.parentNode.removeChild(row);
+  }
+
+  function clearInputs() {
+
+      // Clear input fields
+      document.getElementById("nombreChild").value = "";
+      document.getElementById("edadChild").value = "";
+  }
+</script>
+
+
+
+<script>
+  const canvas = document.getElementById('miCanvas');
+  const ctx = canvas.getContext('2d');
+  let painting = false;
+
+  // Función para iniciar el dibujo
+  function startPosition(e) {
+      painting = true;
+      draw(e);
+  }
+
+  // Función para terminar el dibujo
+  function endPosition() {
+      painting = false;
+      ctx.beginPath();
+  }
+
+  // Función para dibujar en el lienzo
+  function draw(e) {
+      if (!painting) return;
+      ctx.lineWidth = 5;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = 'black';
+
+      // Para eventos táctiles y de mouse, calculamos la posición correctamente
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX || e.touches[0].clientX;
+      const y = e.clientY || e.touches[0].clientY;
+      const offsetX = rect.left;
+      const offsetY = rect.top;
+      
+      ctx.lineTo(x - offsetX, y - offsetY);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x - offsetX, y - offsetY);
+  }
+
+  // Detectamos eventos de mouse y táctiles
+  canvas.addEventListener('mousedown', startPosition);
+  canvas.addEventListener('mouseup', endPosition);
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseout', endPosition);
+
+  // Para dispositivos móviles (táctiles)
+  canvas.addEventListener('touchstart', startPosition);
+  canvas.addEventListener('touchend', endPosition);
+  canvas.addEventListener('touchmove', draw);
+
+</script>
+
+
+{% endblock javascripts %}
