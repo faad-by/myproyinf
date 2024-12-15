@@ -35,6 +35,8 @@ def pages(request):
             return HttpResponseRedirect(reverse('admin:index'))
         context['segment'] = load_template
 
+        # En caso sea la pagina de revision
+
         # Se guarda la informacion en caso exista
         if request.method == 'POST':
             # Leer todos los datos de request.POST
@@ -58,14 +60,16 @@ def pages(request):
                             border=4)
 
             # se devuelve la imagen
-            newpage = "jumpville.pe?regiCode="+h.hexdigest()
+            newpage = "jumpville.pe/forms-checkForm.html?regiCode="+h.hexdigest()
             qr.add_data(newpage)
             qr.make(fit=True)
             img = qr.make_image(fill='black', back_color='white')
             buffer = BytesIO()
             img.save(buffer, format='PNG')
             qr_image_base64 = base64.b64encode(buffer.getvalue()).decode()
-            return redirect("qrpage.html?iden="+qr_image_base64)
+            html_template = loader.get_template("home/qrpage.html")
+            return HttpResponse(html_template.render({"qr_image_base64":qr_image_base64}, request))
+            return redirect("/home/qrpage.html?iden="+qr_image_base64)
 
             #return HttpResponse(html_template.render({"qr_image_base64":qr_image_base64}, request))
 

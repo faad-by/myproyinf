@@ -57,7 +57,7 @@
             <div class="card-header">
               <h3 class="mb-0">Gracias por tu registro.</h3>
             </div>
-            <img id="image" src="" alt="Imagen Base64" width="300" height="300"/>
+            <img id="image" src="data:image/png;base64,{{qr_image_base64}}" alt="Imagen Base64" width="300" height="300"/>
 
             </div>
           </div>
@@ -75,12 +75,10 @@
 
   <!-- Optional JS -->
   <script>
-
-    allimg = "data:image/png;base64,{{qr_image_base64}}"
-    var param1var = getQueryVariable("iden");
-    var imageParent = document.getElementById("image")
-    imageParent.src = "data:image/png;base64," + param1var
-
+    //allimg = "data:image/png;base64,{{qr_image_base64}}"
+    //var param1var = getQueryVariable("iden");
+    //var imageParent = document.getElementById("image")
+    //imageParent.src = "data:image/png;base64," + param1var
 
     function getQueryVariable(variable) {
       var query = window.location.search.substring(1);
