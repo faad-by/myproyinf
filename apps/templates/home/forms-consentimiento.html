@@ -204,7 +204,7 @@
                   </div>
                 </div>
 
-                <button class="btn btn-primary" type="submit">Enviar</button>
+                <button onclick="mysubmitVar()" value="0" id="submitButton" class="btn btn-primary" type="submit">Enviar</button>
               </form>
             </div>
           </div>
@@ -223,20 +223,31 @@
   <!-- Optional JS -->
   <script>
     // Metodo para guardar la informacion de la image
-    function getBase64Image(img) {
-      var canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      var ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      var dataURL = canvas.toDataURL();
-      return dataURL;
+    function getBase64Image() {
+
+      const getBase64StringFromDataURL = (dataURL) =>
+      dataURL.replace('data:', '').replace(/^.+,/, '');
+      const canvas = document.getElementById('miCanvas');
+
+      // Convert canvas to dataURL and log to console
+      const dataURL = canvas.toDataURL();
+
+      // Convert to Base64 string
+      const base64 = getBase64StringFromDataURL(dataURL);
+      document.getElementById("firma-base64").value = base64
     }
+
+    //metodo que cambia la variable
+    function mysubmitVar(){
+      document.getElementById("submitButton").value = "1"
+    }
+
   </script>
 
 
 <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
+
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
       'use strict';
       window.addEventListener('load', function() {
@@ -245,12 +256,15 @@
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
           form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
+            if (form.checkValidity() === false || document.getElementById("submitButton").value == "0") {
+              document.getElementById("submitButton").value = "0"
               event.preventDefault();
               event.stopPropagation();
             }
-            readTableData()
-            document.getElementById("firma-base64").value = "45"
+            if (document.getElementById("submitButton").value == "0"){
+              readTableData()
+              getBase64Image()
+            }
           form.classList.add('was-validated');
           }, false);
         });
@@ -310,6 +324,7 @@
   <script>
     function addData() {
         // Get input values
+        document.getElementById("submitButton").value = "0"
         let name = document.getElementById("nombreChild").value;
         let email = document.getElementById("edadChild").value;
 
@@ -415,6 +430,7 @@
     canvas.addEventListener('touchmove', draw);
 
     document.getElementById('borrarBtn').addEventListener('click', function() {
+        document.getElementById("submitButton").value = "0"      
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Borra todo lo dibujado en el canvas
     });
 

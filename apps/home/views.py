@@ -9,11 +9,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from .models import RegistryModel
+from django.shortcuts import redirect, render
 import hashlib
 
 import qrcode
-from django.shortcuts import render
-from .forms import QRCodeForm
 from io import BytesIO
 import base64
 
@@ -31,9 +30,7 @@ def pages(request):
     # All resource paths end in .html.
     # Pick out the html file name from the url. And load that template.
     try:
-
         load_template = request.path.split('/')[-1]
-
         if load_template == 'admin':
             return HttpResponseRedirect(reverse('admin:index'))
         context['segment'] = load_template
@@ -54,8 +51,6 @@ def pages(request):
                                 firma_imagen = post_data["firma-base64"],
                                 hashcode = h.hexdigest())
             inst.save()
-
-
             qr = qrcode.QRCode(
                             version=1,
                             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -63,15 +58,16 @@ def pages(request):
                             border=4)
 
             # se devuelve la imagen
-            qr.add_data(h.hexdigest())
+            newpage = "jumpville.pe?regiCode="+h.hexdigest()
+            qr.add_data(newpage)
             qr.make(fit=True)
             img = qr.make_image(fill='black', back_color='white')
             buffer = BytesIO()
             img.save(buffer, format='PNG')
             qr_image_base64 = base64.b64encode(buffer.getvalue()).decode()
+            return redirect("qrpage.html?iden="+qr_image_base64)
 
-            html_template = loader.get_template('home/qrpage.html')
-            return HttpResponse(html_template.render({"qr_image_base64":qr_image_base64}, request))
+            #return HttpResponse(html_template.render({"qr_image_base64":qr_image_base64}, request))
 
         html_template = loader.get_template('home/' + load_template)
         return HttpResponse(html_template.render(context, request))

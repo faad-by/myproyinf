@@ -16,6 +16,6 @@ class RegistryModel(models.Model):
     correo = models.CharField(max_length=50)
     apoderados = models.CharField(max_length=550)
     terms_cond= models.CharField(max_length=40)
-    firma_imagen = models.CharField(max_length=40)
+    firma_imagen = models.CharField(max_length=400)
     hashcode = models.CharField(max_length=200)
     fecha_registro = models.DateTimeField(auto_now=True)

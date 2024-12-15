@@ -57,7 +57,7 @@
             <div class="card-header">
               <h3 class="mb-0">Gracias por tu registro.</h3>
             </div>
-            <img id="image" src="data:image/png;base64,{{qr_image_base64}}" alt="Imagen Base64" width="300" height="300"/>
+            <img id="image" src="" alt="Imagen Base64" width="300" height="300"/>
 
             </div>
           </div>
@@ -75,233 +75,27 @@
 
   <!-- Optional JS -->
   <script>
-    // Metodo para guardar la informacion de la image
-    function getBase64Image(img) {
-      var canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      var ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      var dataURL = canvas.toDataURL();
-      return dataURL;
-    }
-  </script>
+
+    allimg = "data:image/png;base64,{{qr_image_base64}}"
+    var param1var = getQueryVariable("iden");
+    var imageParent = document.getElementById("image")
+    imageParent.src = "data:image/png;base64," + param1var
 
 
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-      'use strict';
-      window.addEventListener('load', function() {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-          form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            readTableData()
-            document.getElementById("firma-base64").value = "45"
-          form.classList.add('was-validated');
-          }, false);
-        });
-      }, false);
-    })();
-  </script>
-
-  <script>
-    // Metodo para guardar la informacion de la tabla 
-    function readTableData(){
-         
-         //gets table
-         var eTable = document.getElementById('outputTable');
-  
-         //gets rows of table
-         var rowLength = eTable.rows.length;
-          
-         var totalEmp = [];
-         var headers = [];
-  
-         //loops through rows    
-         for (i = 0; i < rowLength; i++){         
-              
-             //gets cells of current row
-             var oCells = eTable.rows.item(i).cells;
-  
-             //gets count of cells of current row
-             var cellLength = oCells.length;  
-             var rowData = {};
-  
-             //loops through each cell in current row            
-             for(var j = 0; j < cellLength; j++){
-                 if(i==0){
-                     //reading the table headers
-                     /* get your cell info here */
-                     var cellVal = oCells.item(j).innerHTML; 
-                     headers.push(cellVal);
-                 }else{
-                     //reading the table data
-                     var cellVal = oCells.item(j).innerHTML; 
-                     var headerName = headers[j];
-                     rowData[headerName] = cellVal;
-                 }
-                
-             }
-             //skip adding first row (header row) to total record
-             if(i!=0){
-                 totalEmp.push(rowData);
-             }           
-         }
-        document.getElementById("childTable").value=JSON.stringify(totalEmp);
-    }
-  </script>
-
-
-
-  <script>
-    function addData() {
-        // Get input values
-        let name = document.getElementById("nombreChild").value;
-        let email = document.getElementById("edadChild").value;
-
-        if (name!="") {
-          // Get the table and insert a new row at the end
-          let table = document.getElementById("outputTable");
-          let newRow = table.insertRow(table.rows.length);
-
-          // Insert data into cells of the new row
-          newRow.insertCell(0).innerHTML = name;
-          newRow.insertCell(1).innerHTML = email;
-          newRow.insertCell(2).innerHTML ='<button onclick="deleteData(this)">Borrar</button>';
-
-          // Clear input fields
-          clearInputs();          
-        } else {
-          clearInputs();
+    function getQueryVariable(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+          return pair[1];
         }
+      } 
+      alert('Query Variable ' + variable + ' not found');
     }
 
-    function editData(button) {
-        // Get the parent row of the clicked button
-        let row = button.parentNode.parentNode;
-
-        // Get the cells within the row
-        let nameCell = row.cells[0];
-        let emailCell = row.cells[1];
-
-        // Prompt the user to enter updated values
-        let nombreChild =
-            prompt("Enter the updated name:",
-                nameCell.innerHTML);
-        let edadChild =
-            prompt("Enter the updated email:",
-                emailCell.innerHTML);
-
-        // Update the cell contents with the new values
-        nameCell.innerHTML = nameInput;
-        emailCell.innerHTML = emailInput;
-    }
-
-    function deleteData(button) {
-        // Get the parent row of the clicked button
-        let row = button.parentNode.parentNode;
-
-        // Remove the row from the table
-        row.parentNode.removeChild(row);
-    }
-
-    function clearInputs() {
-        // Clear input fields
-        document.getElementById("nombreChild").value = "";
-        document.getElementById("edadChild").value = "";
-    }
   </script>
 
-  <script>
-    const canvas = document.getElementById('miCanvas');
-    const ctx = canvas.getContext('2d');
-    let painting = false;
 
-    // Función para iniciar el dibujo
-    function startPosition(e) {
-        painting = true;
-        draw(e);
-    }
-
-    // Función para terminar el dibujo
-    function endPosition() {
-        painting = false;
-        ctx.beginPath();
-    }
-
-    // Función para dibujar en el lienzo
-    function draw(e) {
-        if (!painting) return;
-        ctx.lineWidth = 5;
-        ctx.lineCap = 'round';
-        ctx.strokeStyle = 'black';
-
-        // Para eventos táctiles y de mouse, calculamos la posición correctamente
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX || e.touches[0].clientX;
-        const y = e.clientY || e.touches[0].clientY;
-        const offsetX = rect.left;
-        const offsetY = rect.top;
-        
-        ctx.lineTo(x - offsetX, y - offsetY);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(x - offsetX, y - offsetY);
-    }
-
-    // Detectamos eventos de mouse y táctiles
-    canvas.addEventListener('mousedown', startPosition);
-    canvas.addEventListener('mouseup', endPosition);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseout', endPosition);
-
-    // Para dispositivos móviles (táctiles)
-    canvas.addEventListener('touchstart', startPosition);
-    canvas.addEventListener('touchend', endPosition);
-    canvas.addEventListener('touchmove', draw);
-
-    document.getElementById('borrarBtn').addEventListener('click', function() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Borra todo lo dibujado en el canvas
-    });
-
-  // Función para verificar si el canvas está vacío
-  function isCanvasEmpty() {
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
-
-    for (let i = 0; i < data.length; i += 4) {
-        // Comprobamos si el valor del color no es blanco (255, 255, 255, 255)
-        if (data[i] !== 255 || data[i + 1] !== 255 || data[i + 2] !== 255 || data[i + 3] !== 255) {
-            return false; // Hay algo dibujado en el canvas
-        }
-    }
-    return true; // El canvas está vacío
-  }
-  </script>
-
-  <script>
-    document.getElementById('miCanvas').addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      
-      if (file) {
-        const reader = new FileReader();
-        
-        reader.onloadend = function() {
-          const base64Image = reader.result; // Contendrá la imagen en base64
-          const base64Input = document.getElementById('firma-base64');
-        };
-        
-        reader.readAsDataURL(file); // Convierte la imagen a base64
-        base64Input.value = base64Image;
-      }
-    });
-  </script>
 
 {% endblock javascripts %}
