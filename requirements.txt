@@ -12,4 +12,4 @@ Unipath==1.1
 whitenoise==5.3.0
 redis
 qrcode[pil]
-psycopg2[binary]==2.9.10
+psycopg2==2.9.10
