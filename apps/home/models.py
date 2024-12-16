@@ -1,12 +1,9 @@
 # -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
-class RegistryModel(models.Model):
+class ModeloRegistro(models.Model):
     "Modelo para guardar informacion del registro"
     nombre_apoderado = models.CharField(max_length=300)
     edad_apoderado = models.IntegerField()
@@ -16,6 +13,6 @@ class RegistryModel(models.Model):
     correo = models.CharField(max_length=50)
     apoderados = models.CharField(max_length=550)
     terms_cond= models.CharField(max_length=40)
-    firma_imagen = models.CharField(max_length=400)
-    hashcode = models.CharField(max_length=200)
-    fecha_registro = models.DateTimeField(auto_now=True)
+    firma_imagen = models.CharField(max_length=12000)
+    hashcode = models.CharField(max_length=400)
+    fecha_registro = models.DateTimeField(default=timezone.now)

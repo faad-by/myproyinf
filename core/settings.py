@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.home'  # Enable the inner home (home)
+    'apps'  # Enable the inner home (home)
 ]
 
 MIDDLEWARE = [
@@ -72,8 +72,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',  # Motor de base de datos
+        'NAME': 'postgres',  # Nombre de la base de datos (lo definimos en el docker-compose)
+        'USER': 'postgres',      # Usuario de la base de datos
+        'PASSWORD': 'mypassdb2408',  # Contraseña del usuario
+        'HOST': "db",  # Nombre del servicio de base de datos en docker-compose (el contenedor 'db')
+        'PORT': 5432,  # Puerto en el que PostgreSQL está corriendo
     }
 }
 
@@ -100,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 
@@ -120,7 +124,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(CORE_DIR, 'apps/static'),
 )
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 #############################################################
 #############################################################

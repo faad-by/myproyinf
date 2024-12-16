@@ -1,13 +1,31 @@
 version: '3.8'
 services:
+  db:
+    image: postgres:14 # Usamos la imagen oficial de PostgreSQL
+    container_name: postgres_db
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - PGUSER=postgres         # Usuario de la base de datos
+      - POSTGRES_PASSWORD=mypassdb2408 # Contraseña de la base de datos
+    ports:
+      - "5432:5432" # Exponemos el puerto para poder conectar desde el host o otros contenedores
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data # Persistencia de datos
+    networks:
+      - mynetwork
+
   appseed-app:
     container_name: appseed_app
     restart: always
     env_file: .env
     build: .
+    volumes:
+      - ./images:/usr/src/images
     networks:
       - db_network
       - web_network
+      - mynetwork
   nginx:
     container_name: nginx
     restart: always
@@ -22,9 +40,15 @@ services:
       - web_network
     depends_on: 
       - appseed-app
+
+volumes:
+  postgres_data:
+
 networks:
   db_network:
     driver: bridge
   web_network:
+    driver: bridge
+  mynetwork:
     driver: bridge
  
