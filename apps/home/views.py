@@ -33,9 +33,9 @@ def pages(request):
     try:
         load_template = request.path.split('/')[-1]
         if load_template == 'admin':
-            return HttpResponseRedirect(reverse('admin:index'))
+            return redirect("/home/forms-consentimiento.html")
+            #return HttpResponseRedirect(reverse('admin:index'))
         context['segment'] = load_template
-
         # En caso sea la pagina de revision
         if (load_template =="forms-checkForm.html"):
             if request.method == 'GET':
@@ -60,6 +60,28 @@ def pages(request):
                 else:
                     return redirect("/home/forms-consentimiento.html")
 
+        if (load_template =="forms-checkFormDni.html"):
+            if request.method == 'GET':
+                dni_code = request.GET.get('dniCode')
+                if (dni_code):
+                    inst = ModeloRegistro.objects.all(num_documento=dni_code).last()
+                    # Se muestra la informacion completa
+                    dict_info = {}
+                    dict_info["nombre_apoderado"] = inst.nombre_apoderado
+                    dict_info["edad_apoderado"] = inst.edad_apoderado
+                    dict_info["tipo_documento"] = inst.tipo_documento
+                    dict_info["num_documento"] = inst.num_documento
+                    dict_info["telefono"] = inst.telefono
+                    dict_info["correo"] = inst.correo
+                    dict_info["apoderados"] = ast.literal_eval(inst.apoderados)
+                    dict_info["terms_cond"] = inst.terms_cond
+                    dict_info["firma_imagen"] = inst.firma_imagen
+                    dict_info["fecha_registro"] = inst.fecha_registro
+
+                    html_template = loader.get_template("home/forms-checkForm.html")
+                    return HttpResponse(html_template.render(dict_info, request))
+                else:
+                    return redirect("/home/forms-consentimiento.html")
 
         # Se guarda la informacion en caso exista
         if request.method == 'POST':
@@ -86,7 +108,7 @@ def pages(request):
                             border=4)
 
             # se devuelve la imagen
-            newpage = "jumpville.pe/forms-checkForm.html?regiCode="+h.hexdigest()
+            newpage = "https://jumpville.pe/forms-checkForm.html?regiCode="+h.hexdigest()
             qr.add_data(newpage)
             qr.make(fit=True)
             img = qr.make_image(fill='black', back_color='white')
