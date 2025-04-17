@@ -38,9 +38,9 @@ def pages(request):
         context['segment'] = load_template
         # En caso sea la pagina de revision
         if (load_template =="forms-checkForm.html"):
-            if request.method == 'GET':
-                hash_code = request.GET.get('regiCode')
-                if (hash_code):
+            if request.method == 'GET':                
+                if ('regiCode' in request.GET):
+                    hash_code = request.GET.get('regiCode')
                     inst = ModeloRegistro.objects.get(hashcode=hash_code)
                     # Se muestra la informacion completa
                     dict_info = {}
@@ -57,14 +57,10 @@ def pages(request):
 
                     html_template = loader.get_template("home/forms-checkForm.html")
                     return HttpResponse(html_template.render(dict_info, request))
-                else:
-                    return redirect("/home/forms-consentimiento.html")
-
-        if (load_template =="forms-checkFormDni.html"):
-            if request.method == 'GET':
-                dni_code = request.GET.get('dniCode')
-                if (dni_code):
-                    inst = ModeloRegistro.objects.all(num_documento=dni_code).last()
+                
+                elif ('dniCode' in request.GET):
+                    dni_code = request.GET.get('dniCode')
+                    inst = ModeloRegistro.objects.all().filter(num_documento=str(dni_code)).last()
                     # Se muestra la informacion completa
                     dict_info = {}
                     dict_info["nombre_apoderado"] = inst.nombre_apoderado
